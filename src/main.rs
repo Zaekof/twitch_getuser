@@ -10,9 +10,9 @@ fn main() {
     dotenv().ok();
 
     let key = "CLIENT_ID";
-    let mut client_id= String::new();
+    let mut _client_id= String::new();
     match env::var(key) {
-        Ok(val) => client_id = val,
+        Ok(val) => _client_id = val,
         Err(e) => {
             println!("couldn't interpret {}: {}", key, e);
             panic!();
@@ -20,9 +20,9 @@ fn main() {
     };
 
     let key = "CLIENT_SECRET";
-    let mut client_secret= String::new();
+    let mut _client_secret= String::new();
     match env::var(key) {
-        Ok(val) => client_secret = val,
+        Ok(val) => _client_secret = val,
         Err(e) => {
             println!("couldn't interpret {}: {}", key, e);
             panic!();
@@ -33,8 +33,8 @@ fn main() {
     let input_login = read_string();
 
     const TWITCH_API_BASE_URL: &'static str = "https://api.twitch.tv/helix/users";
-    let client_secret: &'static str = string_to_static_str(client_secret);
-    let client_id: &'static str = string_to_static_str(client_id);
+    let client_secret: &'static str = string_to_static_str(_client_secret);
+    let client_id: &'static str = string_to_static_str(_client_id);
     let login: &'static str = string_to_static_str(input_login);
 
     println!("{:?}", user_request(&TWITCH_API_BASE_URL, &client_id, &client_secret, &login));

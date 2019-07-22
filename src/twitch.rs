@@ -1,8 +1,8 @@
 pub mod user;
 
 use reqwest::Url;
-use minreq::{get};
-use user::{User};
+use minreq::get;
+use user::User;
 
 #[derive(Debug)]
 pub struct Api {
@@ -36,6 +36,12 @@ impl Request for Api {
     let s: &str = &*data;
     let parsed = json::parse(s).unwrap();
 
+    let s: &str = &*parsed["data"][0]["id"].to_string();
+    if &s.to_owned() == "null" {
+      println!("No user");
+      panic!();
+    }
+
     let uid = &parsed["data"][0]["id"];
     let login = &parsed["data"][0]["login"];
     let display_name = &parsed["data"][0]["display_name"];
@@ -58,14 +64,6 @@ impl Request for Api {
       .send();
     match response {
       Ok(response) => {
-        let some_value = Some(&response.body);
-        if let Some(value) = some_value {
-          println!("x has value: {}", value);
-        }
-        else {
-          println!("x is not set");
-        }
-        println!("{:?}", some_value);
         return response.body
       },
       Err(_) => {
