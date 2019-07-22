@@ -1,0 +1,19 @@
+[package]
+name = "twitchapi"
+version = "0.1.0"
+authors = ["lnogier <lnogier@student.42.fr>"]
+edition = "2018"
+
+[dependencies]
+minreq = { version = "*", features = ["https", "json-using-serde"] }
+json = "0.11.14"
+dotenv = "0.10.0"
+reqwest = "0.4.0"
+
+[lib]
+name = "twitch_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "twitch_bin"
+path = "src/main.rs"
