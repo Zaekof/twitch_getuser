@@ -33,7 +33,7 @@ impl Request for Api {
 
     let data = self.req_get_user();
 
-    let s: &'static str = string_to_static_str(data);
+    let s: &str = &*data;
     let parsed = json::parse(s).unwrap();
 
     let uid = &parsed["data"][0]["id"];
@@ -58,6 +58,14 @@ impl Request for Api {
       .send();
     match response {
       Ok(response) => {
+        let some_value = Some(&response.body);
+        if let Some(value) = some_value {
+          println!("x has value: {}", value);
+        }
+        else {
+          println!("x is not set");
+        }
+        println!("{:?}", some_value);
         return response.body
       },
       Err(_) => {
@@ -65,8 +73,4 @@ impl Request for Api {
       }
     }
   }
-}
-
-fn string_to_static_str(s: String) -> &'static str {
-  Box::leak(s.into_boxed_str())
 }

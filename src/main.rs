@@ -13,14 +13,20 @@ fn main() {
     let mut client_id= String::new();
     match env::var(key) {
         Ok(val) => client_id = val,
-        Err(e) => println!("couldn't interpret {}: {}", key, e),
+        Err(e) => {
+            println!("couldn't interpret {}: {}", key, e);
+            panic!();
+        },
     };
 
     let key = "CLIENT_SECRET";
     let mut client_secret= String::new();
     match env::var(key) {
         Ok(val) => client_secret = val,
-        Err(e) => println!("couldn't interpret {}: {}", key, e),
+        Err(e) => {
+            println!("couldn't interpret {}: {}", key, e);
+            panic!();
+        },
     };
 
     println!("Enter a login : ");
